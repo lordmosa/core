@@ -26,6 +26,7 @@ from homeassistant.components.mqtt.client import (
     RECONNECT_INTERVAL_SECONDS,
     EnsureJobAfterCooldown,
 )
+from homeassistant.components.mqtt.const import SUPPORTED_COMPONENTS
 from homeassistant.components.mqtt.models import (
     MessageCallbackType,
     MqttCommandTemplateException,
@@ -2737,8 +2738,9 @@ async def test_subscription_done_when_birth_message_is_sent(
     # Assert we already have subscribed at the client
     # for new config payloads at the time we the birth message is received
     subscribe_calls = help_all_subscribe_calls(mqtt_client_mock)
-    assert ("homeassistant/+/+/config", 0) in subscribe_calls
-    assert ("homeassistant/+/+/+/config", 0) in subscribe_calls
+    for component in SUPPORTED_COMPONENTS:
+        assert (f"homeassistant/{component}/+/config", 0) in subscribe_calls
+        assert (f"homeassistant/{component}/+/+/config", 0) in subscribe_calls
     mqtt_client_mock.publish.assert_called_with(
         "homeassistant/status", "online", 0, False
     )
