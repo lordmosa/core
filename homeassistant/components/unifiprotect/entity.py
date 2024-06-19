@@ -222,7 +222,6 @@ class BaseProtectEntity(Entity):
             self.device = device
 
         async_get_ufp_enabled = self._async_get_ufp_enabled
-        was_available = self.available
         is_available = (
             last_update_success
             and (
@@ -231,7 +230,7 @@ class BaseProtectEntity(Entity):
             )
             and (not async_get_ufp_enabled or async_get_ufp_enabled(device))
         )
-        if was_available != is_available:
+        if self.available != is_available:
             self._attr_available = is_available
 
     @callback
