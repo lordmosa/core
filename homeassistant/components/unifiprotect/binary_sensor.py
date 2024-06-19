@@ -634,9 +634,8 @@ class ProtectDeviceBinarySensor(ProtectDeviceEntity, BinarySensorEntity):
     def _async_update_device_from_protect(self, device: ProtectModelWithId) -> None:
         super()._async_update_device_from_protect(device)
         was_on = self.is_on
-        is_on = self.entity_description.get_ufp_value(self.device) is True
-        if was_on != is_on:
-            self._attr_is_on = is_on
+        if was_on != (on := self.entity_description.get_ufp_value(device) is True):
+            self._attr_is_on = on
 
 
 class MountableProtectDeviceBinarySensor(ProtectDeviceBinarySensor):
