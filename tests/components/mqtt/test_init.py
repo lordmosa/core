@@ -1790,6 +1790,8 @@ async def test_not_calling_subscribe_when_unsubscribed_within_cooldown(
     mqtt_client_mock.subscribe.reset_mock()
     # Fake that the client is connected
     mqtt_mock().connected = True
+    await hass.async_block_till_done(wait_background_tasks=True)
+    mqtt_client_mock.subscribe.reset_mock()
 
     unsub = await mqtt.async_subscribe(hass, "test/state", record_calls)
     unsub()
@@ -1809,6 +1811,7 @@ async def test_unsubscribe_race(
     mqtt_mock = await mqtt_mock_entry()
     # Fake that the client is connected
     mqtt_mock().connected = True
+    await hass.async_block_till_done(wait_background_tasks=True)
 
     calls_a: list[ReceiveMessage] = []
     calls_b: list[ReceiveMessage] = []
@@ -2744,6 +2747,8 @@ async def test_subscription_done_when_birth_message_is_sent(
     mqtt_client_mock.publish.assert_called_with(
         "homeassistant/status", "online", 0, False
     )
+    await hass.async_block_till_done(wait_background_tasks=True)
+    subscribe_calls = help_all_subscribe_calls(mqtt_client_mock)
     assert ("topic/test", 0) in subscribe_calls
 
 
