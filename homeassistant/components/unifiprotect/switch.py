@@ -478,8 +478,7 @@ class ProtectBaseSwitch(BaseProtectEntity, SwitchEntity):
 
     def _async_update_device_from_protect(self, device: ProtectModelWithId) -> None:
         super()._async_update_device_from_protect(device)
-        was_on = self.is_on
-        if was_on != (on := self.entity_description.get_ufp_value(device) is True):
+        if self.is_on != (on := self.entity_description.get_ufp_value(device) is True):
             self._attr_is_on = on
 
     async def async_turn_on(self, **kwargs: Any) -> None:
