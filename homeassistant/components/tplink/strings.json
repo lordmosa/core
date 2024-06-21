@@ -80,6 +80,20 @@
       "auto_off_enabled": {
         "name": "Auto off enabled"
       }
+    },
+    "number": {
+      "smooth_transition_on": {
+        "name": "Smooth on"
+      },
+      "smooth_transition_off": {
+        "name": "Smooth off"
+      },
+      "auto_off_minutes": {
+        "name": "Turn off in"
+      },
+      "temperature_offset": {
+        "name": "Temperature offset"
+      }
     }
   },
   "services": {

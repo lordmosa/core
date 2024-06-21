@@ -334,6 +334,7 @@ def _description_for_feature[_D: EntityDescription](
     descriptions: Mapping[str, _D],
     *,
     child_alias: str | None = None,
+    **kwargs: Any,
 ) -> _D:
     """Return description object for the given feature.
 
@@ -358,6 +359,7 @@ def _description_for_feature[_D: EntityDescription](
             name=entity_name,
             entity_category=category,
             entity_registry_enabled_default=enabled_default,
+            **kwargs,
         )
     else:
         # Entity are named in the base class based on the following logic:
@@ -369,6 +371,7 @@ def _description_for_feature[_D: EntityDescription](
             icon=feature.icon,
             entity_category=category,
             entity_registry_enabled_default=enabled_default,
+            **kwargs,
         )
         _LOGGER.warning(
             "Device feature: %s (%s) needs an entity description defined, "
