@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Final
 
-from homeassistant.const import Platform
+from homeassistant.const import Platform, UnitOfTemperature
 
 DOMAIN = "tplink"
 
@@ -22,3 +22,8 @@ ATTR_TOTAL_ENERGY_KWH: Final = "total_energy_kwh"
 CONF_DEVICE_CONFIG: Final = "device_config"
 
 PLATFORMS: Final = [Platform.CLIMATE, Platform.LIGHT, Platform.SENSOR, Platform.SWITCH]
+
+UNIT_MAPPING = {
+    "celsius": UnitOfTemperature.CELSIUS,
+    "fahrenheit": UnitOfTemperature.FAHRENHEIT,
+}
